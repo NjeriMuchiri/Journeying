@@ -11,9 +11,9 @@
     <h1>Home page template</h1>
     <div>
         <div>
-            {% for room in rooms %}
+            {% for chamber in chambers %}
             <div>
-                <h5>{{room.id}} -- {{room.name}}</h5>
+                <h5>{{chamber.id}} -- <a href="/chamber/{{chamber.id}}">{{chamber.name}}</h5></a>
             </div>
             {% endfor %}
         </div>
