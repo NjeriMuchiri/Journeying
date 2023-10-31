@@ -9,6 +9,15 @@
 </head>
 <body>
     <h1>Home page template</h1>
+    <div>
+        <div>
+            {% for room in rooms %}
+            <div>
+                <h5>{{room.id}} -- {{room.name}}</h5>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
 {% endblock %}
