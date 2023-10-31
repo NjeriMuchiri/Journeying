@@ -1,14 +1,16 @@
-{% extends 'main.html' %}
-
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOURNEYING</title>
 </head>
 <body>
-    <h1>Home page template</h1>
+    {%include 'navbar.html'%}
+    
+    {% block content %}
+
+    {% endblock %}
+    
 </body>
 </html>
-{% endblock %}

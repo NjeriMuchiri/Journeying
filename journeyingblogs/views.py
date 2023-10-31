@@ -4,8 +4,8 @@ from django.http import HttpResponse
 # Create your views here.
 #our homepage view
 def home(request):
-    return HttpResponse('This is our homepage')
+    return render(request, 'home.html')
 
 #our chamber method view 
 def chamber(request):
-    return HttpResponse('This is our chamber of blogging')
+    return render(request, 'chamber.html')
