@@ -19,3 +19,7 @@ def chamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
     context = {'chamber': chamber}
     return render(request, 'journeyingblogs/chamber.html', context)
+
+def createChamber(request):
+    context = {}
+    return render(request, 'journeyingblogs/chamber_form.html', context)
