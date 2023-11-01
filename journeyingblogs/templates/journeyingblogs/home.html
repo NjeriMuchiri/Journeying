@@ -13,6 +13,7 @@
         <div>
             {% for chamber in chambers %}
             <div>
+                <span>@{{chamber.host.username}}</span>
                 <h5>{{chamber.id}} -- <a href="{% url 'chamber' chamber.id %}">{{chamber.name}}</h5></a>
             </div>
             {% endfor %}
