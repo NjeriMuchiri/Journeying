@@ -14,6 +14,7 @@
         <div>
             {% for chamber in chambers %}
             <div>
+                <a href="{% url 'update-chamber' chamber.id %}">Edit</a>
                 <span>@{{chamber.host.username}}</span>
                 <h5>{{chamber.id}} -- <a href="{% url 'chamber' chamber.id %}">{{chamber.name}}</h5></a>
                 <small>{{chamber.topic.name}}</small>

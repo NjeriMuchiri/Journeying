@@ -30,3 +30,14 @@ def createChamber(request):
             return redirect('homepage')
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
+
+def updateChamber(request, pk):
+    chamber = Chamber.objects.get(id=pk)
+    form = ChamberForm(instance=chamber)
+    if request.method == 'POST':
+        form = ChamberForm(request.POST, instance=chamber)
+        if form.is_valid():
+            form.save()
+            return redirect('homepage')
+    context = {'form': form}
+    return render(request, 'journeyingblogs/chamber_form.html', context)
