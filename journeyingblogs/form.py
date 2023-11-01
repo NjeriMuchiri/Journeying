@@ -3,5 +3,5 @@ from .models import Chamber
 
 class ChamberForm(ModelForm):
     class Meta:
-        Model = Chamber
+        model = Chamber
         fields = '__all__'

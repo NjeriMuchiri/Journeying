@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Chamber
 from .form import ChamberForm
@@ -23,5 +23,10 @@ def chamber(request, pk):
 
 def createChamber(request):
     form = ChamberForm()
+    if request.method == 'POST':
+        form = ChamberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('homepage')
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
