@@ -10,6 +10,7 @@
 <body>
     <h1>Home page template</h1>
     <div>
+        <a href="{% url 'create-chamber' %}">Create Chamber</a>
         <div>
             {% for chamber in chambers %}
             <div>

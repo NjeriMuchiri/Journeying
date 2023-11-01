@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Chamber
+from .form import ChamberForm
 # Create your views here.
 
 # chambers = [
@@ -21,5 +22,6 @@ def chamber(request, pk):
     return render(request, 'journeyingblogs/chamber.html', context)
 
 def createChamber(request):
-    context = {}
+    form = ChamberForm()
+    context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
