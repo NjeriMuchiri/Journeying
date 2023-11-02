@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
@@ -55,6 +57,7 @@ def chamber(request, pk):
     context = {'chamber': chamber}
     return render(request, 'journeyingblogs/chamber.html', context)
 
+@login_required(login_url='loginpage')
 def createChamber(request):
     form = ChamberForm()
     if request.method == 'POST':
@@ -65,9 +68,14 @@ def createChamber(request):
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
+@login_required(login_url='loginpage')
 def updateChamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
     form = ChamberForm(instance=chamber)
+
+    if request.user != chamber.host:
+            return HttpResponse("You are not allowed here!")
+
     if request.method == 'POST':
         form = ChamberForm(request.POST, instance=chamber)
         if form.is_valid():
