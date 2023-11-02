@@ -41,3 +41,10 @@ def updateChamber(request, pk):
             return redirect('homepage')
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
+
+def deleteChamber(request,pk):
+    chamber = Chamber.objects.get(id=pk)
+    if request.method == 'POST':
+        chamber.delete()
+        return redirect('homepage')    
+    return render(request, 'journeyingblogs/delete.html', {'obj':chamber})

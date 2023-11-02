@@ -8,19 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>Home page template</h1>
-    <div>
+    <hr>
+    <div class="home_container">
+        <div>
+            <h3>Browse Blogs Topics</h3>
+            <hr>
+        </div>
+        <div>
         <a href="{% url 'create-chamber' %}">Create Chamber</a>
         <div>
             {% for chamber in chambers %}
             <div>
                 <a href="{% url 'update-chamber' chamber.id %}">Edit</a>
+                <a href="{% url 'delete-chamber' chamber.id %}">Delete</a>
                 <span>@{{chamber.host.username}}</span>
                 <h5>{{chamber.id}} -- <a href="{% url 'chamber' chamber.id %}">{{chamber.name}}</h5></a>
                 <small>{{chamber.topic.name}}</small>
                 <hr>
             </div>
             {% endfor %}
+            </div>
         </div>
     </div>
 </body>

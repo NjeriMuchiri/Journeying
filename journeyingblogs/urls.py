@@ -7,5 +7,6 @@ urlpatterns = [
     path('chamber/<str:pk>/', views.chamber, name='chamber'),
     path('create-chamber/', views.createChamber, name="create-chamber"),
     path('update-chamber/<str:pk>/', views.updateChamber, name="update-chamber"),
+    path('delete-chamber/<str:pk>/', views.deleteChamber, name="delete-chamber"),
 
 ]
