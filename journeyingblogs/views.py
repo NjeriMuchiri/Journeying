@@ -15,6 +15,9 @@ from .form import ChamberForm
 #     {'id': 3, 'name': 'my entry job journey'},
 # ]
 def ourLoginPage(request):
+    if request.user.is_authenticated:
+        return redirect('homepage')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
