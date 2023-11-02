@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from .models import Chamber, Topic
 from .form import ChamberForm
@@ -20,7 +21,7 @@ def ourLoginPage(request):
         return redirect('homepage')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
         try:
@@ -44,8 +45,19 @@ def logoutUser(request):
     return redirect('homepage')
 
 def registerPage(request):
-    page = 'register'
-    return render(request, 'journeyingblogs/login_register.html')
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('homepage')
+        else:
+            messages.error(request, 'An error occured during registration')
+    return render(request, 'journeyingblogs/login_register.html', {'form': form})
 
 #our homepage view
 def home(request):
