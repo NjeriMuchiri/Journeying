@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Chamber, Topic
 from .form import ChamberForm
@@ -9,6 +11,18 @@ from .form import ChamberForm
 #     {'id': 2, 'name': 'my graphic designing journey'},
 #     {'id': 3, 'name': 'my entry job journey'},
 # ]
+def ourLoginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User does nor exist')
+
+    context = {}
+    return render(request, 'journeyingblogs/login_register.html', context)
 #our homepage view
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -18,7 +32,8 @@ def home(request):
                                       Q(description__icontains=q)
                                       )
     topics = Topic.objects.all()
-    context = {'chambers': chambers, 'topics': topics}
+    chamber_count = chambers.count()
+    context = {'chambers': chambers, 'topics': topics, 'chamber_count': chamber_count}
     return render(request, 'journeyingblogs/home.html', context)
 
 #our chamber method view 
