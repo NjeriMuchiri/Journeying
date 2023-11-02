@@ -15,6 +15,7 @@ from .form import ChamberForm
 #     {'id': 3, 'name': 'my entry job journey'},
 # ]
 def ourLoginPage(request):
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('homepage')
 
@@ -35,12 +36,17 @@ def ourLoginPage(request):
         else:
             messages.error(request, "Username OR Password doesn't exist")
 
-    context = {}
+    context = {'page': page}
     return render(request, 'journeyingblogs/login_register.html', context)
 
 def logoutUser(request):
     logout(request)
     return redirect('homepage')
+
+def registerPage(request):
+    page = 'register'
+    return render(request, 'journeyingblogs/login_register.html')
+
 #our homepage view
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
