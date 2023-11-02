@@ -84,8 +84,13 @@ def updateChamber(request, pk):
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
+@login_required(login_url='loginpage')
 def deleteChamber(request,pk):
     chamber = Chamber.objects.get(id=pk)
+
+    if request.user != chamber.host:
+            return HttpResponse("You are not allowed here!")
+
     if request.method == 'POST':
         chamber.delete()
         return redirect('homepage')    
