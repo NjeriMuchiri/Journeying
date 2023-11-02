@@ -11,5 +11,8 @@
         <img src="{% static 'images/logojourneying.png' %}" alt="logo" srcset="" height=150 width=150
      class="d-inline-block align-top">
     </a>
+    <form action="{% url 'homepage' %}" method="GET">
+        <input type="text" name="q" placeholder="search chambers..."/>
+    </form>
 </body>
 </html>

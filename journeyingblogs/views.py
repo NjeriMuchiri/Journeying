@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Chamber, Topic
 from .form import ChamberForm
 # Create your views here.
@@ -10,7 +11,12 @@ from .form import ChamberForm
 # ]
 #our homepage view
 def home(request):
-    chambers = Chamber.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    chambers = Chamber.objects.filter(
+                                      Q(topic__name__icontains=q) | 
+                                      Q(name__icontains=q) | 
+                                      Q(description__icontains=q)
+                                      )
     topics = Topic.objects.all()
     context = {'chambers': chambers, 'topics': topics}
     return render(request, 'journeyingblogs/home.html', context)

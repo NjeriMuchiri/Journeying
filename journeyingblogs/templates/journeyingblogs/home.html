@@ -20,6 +20,9 @@
         <div>
             <h3>Browse Blogs Topics</h3>
             <hr>
+            <div>
+                <a href="{% url 'homepage' %}">All</a>
+            </div>
             {% for topic in topics %}
             <div>
                 <a href="{% url 'homepage' %}?q={{topic.name}}">{{topic.name}}</a>
@@ -27,6 +30,7 @@
             {% endfor %}
         </div>
         <div>
+            <h5>{{chamber_count}} Chambers Available</h5>
         <a href="{% url 'create-chamber' %}">Create Chamber</a>
         <div>
             {% for chamber in chambers %}
