@@ -32,6 +32,10 @@ def ourLoginPage(request):
 
     context = {}
     return render(request, 'journeyingblogs/login_register.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('homepage')
 #our homepage view
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''

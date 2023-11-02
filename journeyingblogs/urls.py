@@ -4,6 +4,8 @@ from . import views
 
 urlpatterns = [
     path('login/', views.ourLoginPage, name="loginpage"),
+    path('logout/', views.logoutUser, name="logoutuser"),
+
     path('', views.home, name='homepage'),
     path('chamber/<str:pk>/', views.chamber, name='chamber'),
     path('create-chamber/', views.createChamber, name="create-chamber"),
