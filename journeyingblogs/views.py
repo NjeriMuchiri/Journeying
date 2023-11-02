@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Chamber
+from .models import Chamber, Topic
 from .form import ChamberForm
 # Create your views here.
 
@@ -12,7 +11,8 @@ from .form import ChamberForm
 #our homepage view
 def home(request):
     chambers = Chamber.objects.all()
-    context = {'chambers': chambers}
+    topics = Topic.objects.all()
+    context = {'chambers': chambers, 'topics': topics}
     return render(request, 'journeyingblogs/home.html', context)
 
 #our chamber method view 
