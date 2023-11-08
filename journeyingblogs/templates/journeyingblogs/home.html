@@ -42,6 +42,7 @@
                 <span>@{{chamber.host.username}}</span>
                 <h5>{{chamber.id}} -- <a href="{% url 'chamber' chamber.id %}">{{chamber.name}}</h5></a>
                 <small>{{chamber.topic.name}}</small>
+
                 <hr>
             </div>
             {% endfor %}
@@ -53,6 +54,8 @@
            {% for reaction in chamber_reactions %}
                 <div>
                     <small>@{{reaction.user}} {{reaction.created|timesince}}</small>
+                    <small>replied to "{{reaction.chamber}}"</small>
+                    <p>{{reaction}}</p>
                 </div>
            {% endfor %}
         </div>

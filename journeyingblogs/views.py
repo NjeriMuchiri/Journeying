@@ -78,7 +78,7 @@ def home(request):
 #our chamber method view 
 def chamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
-    chamber_messages = chamber.message_set.all().order_by('-created')
+    chamber_messages = chamber.message_set.all()
     techiesspace = chamber.techiesspace.all()
 
     if request.method == 'POST':
