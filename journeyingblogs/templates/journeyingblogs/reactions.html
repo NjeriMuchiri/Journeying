@@ -2,7 +2,7 @@
            <hr>
            {% for reaction in chamber_reactions %}
                 <div>
-                    <small>@{{reaction.user}} {{reaction.created|timesince}}</small>
+                    <small><a href="{% url 'user-profile' reaction.user.id %}"></a>@{{reaction.user}} {{reaction.created|timesince}}</small>
                     <small>replied to "{{reaction.chamber}}"</small>
                     <p>{{reaction}}</p>
 

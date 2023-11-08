@@ -93,6 +93,15 @@ def chamber(request, pk):
     context = {'chamber': chamber, 'chamber_messages': chamber_messages,'techiesspace':techiesspace}
     return render(request, 'journeyingblogs/chamber.html', context)
 
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    chambers = user.chamber_set.all()
+    chamber_messages = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user': user, 'chambers': chambers, 'chamber_messages': chamber_messages,
+               'topics': topics}
+    return render(request, 'journeyingblogs/userprofile.html', context)
+
 @login_required(login_url='loginpage')
 def createChamber(request):
     form = ChamberForm()
