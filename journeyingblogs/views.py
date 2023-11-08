@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
-from .models import Chamber, Topic
+from .models import Chamber, Topic, Message
 from .form import ChamberForm
 # Create your views here.
 
@@ -75,7 +75,17 @@ def home(request):
 #our chamber method view 
 def chamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
-    context = {'chamber': chamber}
+    chamber_messages = chamber.message_set.all().order_by('-created')
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user=request.user,
+            chamber=chamber,
+            body=request.POST.get('body')
+        )
+        return redirect('chamber', pk=chamber.id)
+
+    context = {'chamber': chamber, 'chamber_messages': chamber_messages}
     return render(request, 'journeyingblogs/chamber.html', context)
 
 @login_required(login_url='loginpage')

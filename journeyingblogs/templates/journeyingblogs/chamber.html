@@ -9,6 +9,27 @@
 </head>
 <body>
     <h1>{{chamber.name}}</h1>
+
+    <p>{{chamber.description}}</p>
+
+    <div class="comment-wrapper">
+        <h3>Conversation</h3>
+        <hr>
+        {% for message in chamber_messages %}
+        <div>
+            <small>@{{message.user}}  {{message.created|timesince}} ago</small>
+            <p>{{message.body}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="write your message here" />
+        </form>
+    </div>
+    {% endif %}
 </body>
 </html>
 {% endblock %}
