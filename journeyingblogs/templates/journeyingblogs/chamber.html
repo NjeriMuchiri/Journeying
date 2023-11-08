@@ -6,8 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .chamber-container
+        {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+        }
+    </style>
 </head>
 <body>
+    <div class="chamber-container">
+        <div>
     <h1>{{chamber.name}}</h1>
 
     <p>{{chamber.description}}</p>
@@ -17,6 +26,9 @@
         <hr>
         {% for message in chamber_messages %}
         <div>
+            {% if request.user == message.user %}
+            <a href="{% url 'delete-message' message.id %}">Delete</a>
+            {% endif %}
             <small>@{{message.user}}  {{message.created|timesince}} ago</small>
             <p>{{message.body}}</p>
         </div>
@@ -30,6 +42,17 @@
         </form>
     </div>
     {% endif %}
+</div>
+<div>
+    <h3>Techies Space</h3>
+    <hr>
+    {% for techie in techiesspace %}
+    <div>
+       <p>@{{techie.username}}</p>
+    </div>
+    {% endfor %}
+</div>
+    </div>
 </body>
 </html>
 {% endblock %}

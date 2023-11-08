@@ -76,6 +76,7 @@ def home(request):
 def chamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
     chamber_messages = chamber.message_set.all().order_by('-created')
+    techiesspace = chamber.techiesspace.all()
 
     if request.method == 'POST':
         message = Message.objects.create(
@@ -83,9 +84,10 @@ def chamber(request, pk):
             chamber=chamber,
             body=request.POST.get('body')
         )
+        chamber.techiesspace.add(request.user)
         return redirect('chamber', pk=chamber.id)
 
-    context = {'chamber': chamber, 'chamber_messages': chamber_messages}
+    context = {'chamber': chamber, 'chamber_messages': chamber_messages,'techiesspace':techiesspace}
     return render(request, 'journeyingblogs/chamber.html', context)
 
 @login_required(login_url='loginpage')
@@ -126,3 +128,16 @@ def deleteChamber(request,pk):
         chamber.delete()
         return redirect('homepage')    
     return render(request, 'journeyingblogs/delete.html', {'obj':chamber})
+
+
+@login_required(login_url='loginpage')
+def deleteMessage(request,pk):
+    message = Message.objects.get(id=pk)
+
+    if request.user != message.user:
+            return HttpResponse("You are not allowed here!")
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('homepage')    
+    return render(request, 'journeyingblogs/delete.html', {'obj':message})
