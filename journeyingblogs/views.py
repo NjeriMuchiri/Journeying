@@ -69,7 +69,10 @@ def home(request):
                                       )
     topics = Topic.objects.all()
     chamber_count = chambers.count()
-    context = {'chambers': chambers, 'topics': topics, 'chamber_count': chamber_count}
+    chamber_reactions = Message.objects.all()
+    
+    context = {'chambers': chambers, 'topics': topics,
+               'chamber_count': chamber_count, 'chamber_reactions':chamber_reactions}
     return render(request, 'journeyingblogs/home.html', context)
 
 #our chamber method view 

@@ -47,6 +47,15 @@
             {% endfor %}
             </div>
         </div>
+        <div>
+           <h3>Blogs Reactions</h3>
+           <hr>
+           {% for reaction in chamber_reactions %}
+                <div>
+                    <small>@{{reaction.user}} {{reaction.created|timesince}}</small>
+                </div>
+           {% endfor %}
+        </div>
     </div>
 </body>
 </html>
