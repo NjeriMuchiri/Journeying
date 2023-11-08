@@ -69,7 +69,7 @@ def home(request):
                                       )
     topics = Topic.objects.all()
     chamber_count = chambers.count()
-    chamber_reactions = Message.objects.all()
+    chamber_reactions = Message.objects.filter(Q(chamber__topic__name__icontains=q))
     
     context = {'chambers': chambers, 'topics': topics,
                'chamber_count': chamber_count, 'chamber_reactions':chamber_reactions}

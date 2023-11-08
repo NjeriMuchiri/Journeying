@@ -18,46 +18,21 @@
     <hr>
     <div class="home_container">
         <div>
-            <h3>Browse Blogs Topics</h3>
-            <hr>
-            <div>
-                <a href="{% url 'homepage' %}">All</a>
-            </div>
-            {% for topic in topics %}
-            <div>
-                <a href="{% url 'homepage' %}?q={{topic.name}}">{{topic.name}}</a>
-            </div>
-            {% endfor %}
+
+           {% include 'journeyingblogs/topics.html' %}
+
         </div>
         <div>
             <h5>{{chamber_count}} Chambers Available</h5>
         <a href="{% url 'create-chamber' %}">Create Chamber</a>
-        <div>
-            {% for chamber in chambers %}
-            <div>
-                {% if request.user == chamber.host %}
-                <a href="{% url 'update-chamber' chamber.id %}">Edit</a>
-                <a href="{% url 'delete-chamber' chamber.id %}">Delete</a>
-                {% endif %}
-                <span>@{{chamber.host.username}}</span>
-                <h5>{{chamber.id}} -- <a href="{% url 'chamber' chamber.id %}">{{chamber.name}}</h5></a>
-                <small>{{chamber.topic.name}}</small>
 
-                <hr>
-            </div>
-            {% endfor %}
-            </div>
+        {% include 'journeyingblogs/content.html' %}
+        
         </div>
         <div>
-           <h3>Blogs Reactions</h3>
-           <hr>
-           {% for reaction in chamber_reactions %}
-                <div>
-                    <small>@{{reaction.user}} {{reaction.created|timesince}}</small>
-                    <small>replied to "{{reaction.chamber}}"</small>
-                    <p>{{reaction}}</p>
-                </div>
-           {% endfor %}
+
+           {% include 'journeyingblogs/reactions.html' %}
+
         </div>
     </div>
 </body>
