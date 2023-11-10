@@ -13,12 +13,9 @@
     </style>
 </head>
 <body>
-    <a href="/">
-        <img src="{% static 'images/journeying-yellow.png' %}" class="logo-j" alt="logo" srcset="" class="d-inline-block align-top">
-    </a>
-    <form action="{% url 'homepage' %}" method="GET">
+    <!-- <form action="{% url 'homepage' %}" method="GET">
         <input type="text" name="q" placeholder="search chambers..."/>
-    </form>
+    </form> -->
     {% if request.user.is_authenticated %}
     <p>Hello {{request.user}}</p>
     <a href="{% url 'logoutuser'%}">Logout</a>

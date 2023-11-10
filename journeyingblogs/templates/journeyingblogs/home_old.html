@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .home_container
+        {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+        }
+    </style>
+</head>
+<body>
+    <hr>
+    <div class="home_container">
+        <div>
+
+           {% include 'journeyingblogs/topics.html' %}
+
+        </div>
+        <div>
+            <h5>{{chamber_count}} Chambers Available</h5>
+        <a href="{% url 'create-chamber' %}">Create Chamber</a>
+
+        {% include 'journeyingblogs/content.html' %}
+        
+        </div>
+        <div>
+
+           {% include 'journeyingblogs/reactions.html' %}
+
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
