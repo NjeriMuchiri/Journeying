@@ -1,26 +1,49 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<style>
-    .userprofile-container
-    {
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
-    }
-</style>
+<main class="profile-page layout layout--3">
+  <div class="container">
+    <!-- Topics Start -->
+    {% include 'journeyingblogs/topics.html' %}
+    <!-- Topics End -->
 
-<h1>{{user.username}}</h1>
-
-<div class="userprofile-container">
-    <div>
-
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="profile">
+        <div class="profile__avatar">
+          <div class="avatar avatar--large active">
+            <img src="{{user.avatar.url}}" />
+          </div>
         </div>
-            <div>
-             {% include 'journeyingblogs/content.html' %}
-            </div>
+        <div class="profile__info">
+          <!-- <h3>{{user.username}}</h3> -->
+          <p>@{{user.username}}</p>
+          {% if request.user == user %}
+          <a href="{}" class="btn btn--main btn--pill">Edit Profile</a>
+          {% endif %}
+        </div>
+        <div class="profile__about">
+          <h3>About</h3>
+          <p>
+            {{user.bio}}
+          </p>
+        </div>
+      </div>
+
+      <div class="roomList__header">
         <div>
+          <h2>Study Rooms Hosted by dennis_ivy</a>
+          </h2>
+        </div>
+      </div>
+{% include 'journeyingblogs/feed_component.html' %}
 
     </div>
-</div>
+    <!-- Room List End -->
 
-{% endblock %}
+    <!-- Activities Start -->
+    {% include 'journeyingblogs/reactions.html' %}
+    <!-- Activities End -->
+  </div>
+</main>
+{% endblock content %}

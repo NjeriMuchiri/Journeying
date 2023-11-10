@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .chamber-container
+        {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+        }
+    </style>
+</head>
+<body>
+    <div class="chamber-container">
+        <div>
+    <h1>{{chamber.name}}</h1>
+
+    <p>{{chamber.description}}</p>
+
+    <div class="comment-wrapper">
+        <h3>Conversation</h3>
+        <hr>
+        {% for message in chamber_messages %}
+        <div>
+            {% if request.user == message.user %}
+            <a href="{% url 'delete-message' message.id %}">Delete</a>
+            {% endif %}
+            <small>@{{message.user}}  {{message.created|timesince}} ago</small>
+            <p>{{message.body}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="write your message here" />
+        </form>
+    </div>
+    {% endif %}
+</div>
+<div>
+    <h3>Techies Space</h3>
+    <hr>
+    {% for techie in techiesspace %}
+    <div>
+       <p>@{{techie.username}}</p>
+    </div>
+    {% endfor %}
+</div>
+    </div>
+</body>
+</html>
+{% endblock %}
