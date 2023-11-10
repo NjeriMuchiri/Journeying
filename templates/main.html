@@ -1,6 +1,5 @@
-{% load static %}
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,9 +9,12 @@
 
     <title>JOURNEYING</title>
 </head>
-<body>
-    <!-- {%include 'navbar.html'%} -->
+
+  <body>
     
+
+    {%include 'navbar.html'%}
+
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -24,6 +26,7 @@
     {% block content %}
 
     {% endblock %}
-    
-</body>
+   
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
 </html>
