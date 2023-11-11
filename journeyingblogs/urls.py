@@ -16,6 +16,5 @@ urlpatterns = [
     path('update-chamber/<str:pk>/', views.updateChamber, name="update-chamber"),
     path('delete-chamber/<str:pk>/', views.deleteChamber, name="delete-chamber"),
     path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
-
-
-]
+    path('update-user/', views.updateUser, name="update-user"),
+    ]

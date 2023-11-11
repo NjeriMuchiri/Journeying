@@ -124,16 +124,21 @@ def createChamber(request):
 def updateChamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
     form = ChamberForm(instance=chamber)
+    topics = Topic.objects.all()
 
     if request.user != chamber.host:
             return HttpResponse("You are not allowed here!")
 
     if request.method == 'POST':
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
         form = ChamberForm(request.POST, instance=chamber)
-        if form.is_valid():
-            form.save()
-            return redirect('homepage')
-    context = {'form': form}
+        chamber.name = request.POST.get('name')
+        chamber.topic = topic
+        chamber.description = request.POST.get('description')
+        chamber.save()
+        return redirect('homepage')
+    context = {'form': form, 'topics': topics, 'chamber': chamber}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
 @login_required(login_url='loginpage')
@@ -160,3 +165,7 @@ def deleteMessage(request,pk):
         message.delete()
         return redirect('homepage')    
     return render(request, 'journeyingblogs/delete.html', {'obj':message})
+
+@login_required(login_url='login')
+def updateUser(request):
+    return render(request, 'journeyingblogs/update-user.html')
