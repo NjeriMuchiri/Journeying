@@ -31,6 +31,7 @@
     <div class="activities__boxContent">
       <p>replied blog “<a href="{% url 'user-profile' message.user.id %}">{{message.chamber}}</a>”</p>
       <div class="activities__boxRoomContent">
+        {{message.body}}
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from .models import Chamber, Topic, Message
-from .form import ChamberForm
+from .form import ChamberForm, UserForm
 # Create your views here.
 
 # chambers = [
@@ -168,4 +168,13 @@ def deleteMessage(request,pk):
 
 @login_required(login_url='login')
 def updateUser(request):
-    return render(request, 'journeyingblogs/update-user.html')
+    user = request.user
+    form = UserForm(instance=user)
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+    context = {'form': form}
+
+    return render(request, 'journeyingblogs/update-user.html', context)
