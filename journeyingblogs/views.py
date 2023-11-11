@@ -105,14 +105,19 @@ def userProfile(request, pk):
 @login_required(login_url='loginpage')
 def createChamber(request):
     form = ChamberForm()
+    topics = Topic.objects.all()
     if request.method == 'POST':
-        form = ChamberForm(request.POST)
-        if form.is_valid():
-            chamber = form.save(commit=False)
-            chamber.host = request.user
-            chamber.save()
-            return redirect('homepage')
-    context = {'form': form}
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+
+        Chamber.objects.create(
+            host=request.user,
+            topic=topic,
+            name=request.POST.get('name'),
+            description=request.POST.get('description'),            
+        )
+        return redirect('homepage')
+    context = {'form': form, 'topics': topics}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
 @login_required(login_url='loginpage')
