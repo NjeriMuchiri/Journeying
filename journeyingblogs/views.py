@@ -108,7 +108,9 @@ def createChamber(request):
     if request.method == 'POST':
         form = ChamberForm(request.POST)
         if form.is_valid():
-            form.save()
+            chamber = form.save(commit=False)
+            chamber.host = request.user
+            chamber.save()
             return redirect('homepage')
     context = {'form': form}
     return render(request, 'journeyingblogs/chamber_form.html', context)

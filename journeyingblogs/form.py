@@ -5,3 +5,4 @@ class ChamberForm(ModelForm):
     class Meta:
         model = Chamber
         fields = '__all__'
+        exclude = ['host', 'techiesspace']
