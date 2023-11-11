@@ -27,7 +27,7 @@
           </div>
           <div class="roomList__header">
             <div>
-              <h2>Developers Blogs</h2>
+              <h2>Journeying Blogs</h2>
               <h5>{{chamber_count}} Chambers Available</h5>
             </div>
             <a class="btn btn--main" href="{% url 'create-chamber' %}">
@@ -45,7 +45,9 @@
         <!-- chamber List End -->
 
         <!-- Reactions Start -->
-       {% include 'journeyingblogs/reactions.html' %}
+        <div>
+          {% include 'journeyingblogs/reactions.html' %}
+        </div>
         <!-- Reactions End -->
       </div>
     </main>
