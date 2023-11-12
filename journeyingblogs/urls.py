@@ -17,4 +17,6 @@ urlpatterns = [
     path('delete-chamber/<str:pk>/', views.deleteChamber, name="delete-chamber"),
     path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
     path('update-user/', views.updateUser, name="update-user"),
+    path('topic/', views.topicPage, name="topic_page"),
+    path('blogreaction/', views.ReactionPage, name="blog_reaction"),
     ]

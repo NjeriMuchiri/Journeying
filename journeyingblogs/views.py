@@ -67,7 +67,7 @@ def home(request):
                                       Q(name__icontains=q) | 
                                       Q(description__icontains=q)
                                       )
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
     chamber_count = chambers.count()
     chamber_reactions = Message.objects.filter(Q(chamber__topic__name__icontains=q))
     
@@ -178,3 +178,12 @@ def updateUser(request):
     context = {'form': form}
 
     return render(request, 'journeyingblogs/update-user.html', context)
+
+def topicPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request, 'journeyingblogs/topic.html', {'topics': topics})
+
+def ReactionPage(request):
+    chamber_messages = Message.objects.all()
+    return render(request, 'journeyingblogs/reaction.html', {'chamber_messages':chamber_messages})
