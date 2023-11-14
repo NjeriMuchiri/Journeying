@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+#our topic model
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
-
+# our chamber model
 class Chamber(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
@@ -24,6 +25,7 @@ class Chamber(models.Model):
     def __str__(self):
         return self.name
 
+#the message model
 class Message(models.Model):
     user =  models.ForeignKey(User, on_delete=models.CASCADE)
     chamber = models.ForeignKey(Chamber, on_delete=models.CASCADE)

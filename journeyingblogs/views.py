@@ -10,11 +10,8 @@ from .models import Chamber, Topic, Message
 from .form import ChamberForm, UserForm
 # Create your views here.
 
-# chambers = [
-#     {'id': 1, 'name': 'my software engineering journey'},
-#     {'id': 2, 'name': 'my graphic designing journey'},
-#     {'id': 3, 'name': 'my entry job journey'},
-# ]
+
+# view for our login page
 def ourLoginPage(request):
     page = 'login'
     if request.user.is_authenticated:
@@ -40,10 +37,12 @@ def ourLoginPage(request):
     context = {'page': page}
     return render(request, 'journeyingblogs/login_register.html', context)
 
+#view for logging a user out
 def logoutUser(request):
     logout(request)
     return redirect('homepage')
 
+#registration view
 def registerPage(request):
     form = UserCreationForm()
 
@@ -93,6 +92,7 @@ def chamber(request, pk):
     context = {'chamber': chamber, 'chamber_messages': chamber_messages,'techiesspace':techiesspace}
     return render(request, 'journeyingblogs/chamber.html', context)
 
+#the user profile view
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     chambers = user.chamber_set.all()
@@ -102,6 +102,7 @@ def userProfile(request, pk):
                'topics': topics}
     return render(request, 'journeyingblogs/userprofile.html', context)
 
+#creating chamber view with a decorator
 @login_required(login_url='loginpage')
 def createChamber(request):
     form = ChamberForm()
@@ -120,6 +121,7 @@ def createChamber(request):
     context = {'form': form, 'topics': topics}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
+# the updating chamber view with a login required decorator
 @login_required(login_url='loginpage')
 def updateChamber(request, pk):
     chamber = Chamber.objects.get(id=pk)
@@ -141,6 +143,7 @@ def updateChamber(request, pk):
     context = {'form': form, 'topics': topics, 'chamber': chamber}
     return render(request, 'journeyingblogs/chamber_form.html', context)
 
+#deleting chamber view
 @login_required(login_url='loginpage')
 def deleteChamber(request,pk):
     chamber = Chamber.objects.get(id=pk)
@@ -153,7 +156,7 @@ def deleteChamber(request,pk):
         return redirect('homepage')    
     return render(request, 'journeyingblogs/delete.html', {'obj':chamber})
 
-
+#deleting a message view
 @login_required(login_url='loginpage')
 def deleteMessage(request,pk):
     message = Message.objects.get(id=pk)
@@ -166,6 +169,7 @@ def deleteMessage(request,pk):
         return redirect('homepage')    
     return render(request, 'journeyingblogs/delete.html', {'obj':message})
 
+#updating a user view
 @login_required(login_url='login')
 def updateUser(request):
     user = request.user
@@ -179,11 +183,13 @@ def updateUser(request):
 
     return render(request, 'journeyingblogs/update-user.html', context)
 
+#this is a view of search for topics
 def topicPage(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q)
     return render(request, 'journeyingblogs/topic.html', {'topics': topics})
 
+#this is a view of search for blog reactions
 def ReactionPage(request):
     chamber_messages = Message.objects.all()
     return render(request, 'journeyingblogs/reaction.html', {'chamber_messages':chamber_messages})

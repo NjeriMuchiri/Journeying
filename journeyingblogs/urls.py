@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-
+#uniform resource locators for routing through our pages
 urlpatterns = [
     path('login/', views.ourLoginPage, name="loginpage"),
     path('logout/', views.logoutUser, name="logoutuser"),
